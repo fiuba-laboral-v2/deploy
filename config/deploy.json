@@ -25,14 +25,14 @@
     "production": {
       "branch": "master",
       "repository": "git@github.com:fiuba-laboral-v2/back-end.git",
-      "location": "./back-end",
+      "location": "./fiuba-laboral-v2/back-end",
       "ssh_address": "laboral@laboral.fi.uba.ar",
       "container_name": "fiuba-laboral-v2-backend"
     },
     "staging": {
       "branch": "feature/16-deploy",
       "repository": "https://github.com/fiuba-laboral-v2/back-end.git",
-      "location": "./back-end",
+      "location": "./fiuba-laboral-v2/back-end",
       "ssh_address": "laboral@antiguos.fi.uba.ar",
       "container_name": "fiuba-laboral-v2-backend"
     }
