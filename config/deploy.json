@@ -7,7 +7,8 @@
       "branch": "master",
       "repository": "git@github.com:fiuba-laboral-v2/front-end.git",
       "location": "./front-end",
-      "ssh_address": "laboral@antiguos.fi.uba.ar"
+      "ssh_address": "laboral@antiguos.fi.uba.ar",
+      "user": "laboral"
     },
     "staging": {
       "sub_domain": "/laboral",
@@ -16,7 +17,8 @@
       "branch": "feature/16-deploy",
       "repository": "https://github.com/fiuba-laboral-v2/front-end.git",
       "location": "./front-end",
-      "ssh_address": "laboral@antiguos.fi.uba.ar"
+      "ssh_address": "laboral@antiguos.fi.uba.ar",
+      "user": "laboral"
     }
   },
   "backend": {
