@@ -14,7 +14,12 @@ const branch = config.branch;
 const sshAddress = config.ssh_address;
 const containerName = config.container_name;
 
-shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} git clone -b ${branch} ${repository} ${location}`);
-shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} 'cd ${location} && docker-compose up -d --build'`);
-shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} docker exec ${containerName} yarn db:create`);
+if (shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress}cd ${location}`).code !== 0) {
+    shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} git clone -b ${branch} ${repository} ${location}`);
+    shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} 'cd ${location} && docker-compose up -d --build'`);
+    shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} docker exec ${containerName} yarn db:create`);
+} else {
+    shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} cd ${location} && git pull origin ${branch}`);
+    shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} docker exec ${containerName} yarn install`);
+}
 shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} docker exec ${containerName} yarn db:migrate`);
