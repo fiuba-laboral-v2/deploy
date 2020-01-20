@@ -23,5 +23,3 @@ shell.exec(`ssh -o "StrictHostKeyChecking no" -t ${sshAddress} HOSTNAME=${hostna
 shell.echo("Set up docker permissions");
 shell.exec(`ssh -o "StrictHostKeyChecking no" -t ${sshAddress} sudo groupadd docker`);
 shell.exec(`ssh -o "StrictHostKeyChecking no" -t ${sshAddress} sudo usermod -aG docker $USER`);
-
-shell.exec(`node scripts/deploy.js`);
