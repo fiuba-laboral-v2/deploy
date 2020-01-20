@@ -25,7 +25,7 @@ if (shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} cd ${location}`)
     shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} docker exec ${containerName} yarn db:create`);
 } else {
     shell.echo(`cd ${location} && git pull origin ${branch}`);
-    shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} cd ${location} && git pull origin ${branch}`);
+    shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} 'cd ${location} && git pull origin ${branch}'`);
 
     shell.echo("building container");
     shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} 'cd ${location} && docker-compose up -d --build'`);
