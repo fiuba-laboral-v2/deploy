@@ -9,7 +9,7 @@ if (config === undefined) {
 }
 
 function throwErrorIfFails(code) {
-    if (code !== 0 ) throw { code };
+    if (code !== 0) throw { code };
 }
 
 function sshCommand(sshAddress) {
@@ -42,7 +42,7 @@ function cloneRepository(sshAddress, gitRepository) {
     throwErrorIfFails(code);
 }
 
-function dockerCompose(sshAddress, gitRepository) {
+function dockerComposeUp(sshAddress, gitRepository) {
     shell.echo("building container");
     const code = shell.exec(`${sshCommand(sshAddress)} 'cd ${gitRepository.location} && docker-compose up -d --build'`).code;
     throwErrorIfFails(code);
@@ -67,7 +67,7 @@ try {
     if (isFirstDeploy) cloneRepository(sshAddress, gitRepository);
     gitCheckoutToBranch(sshAddress, gitRepository);
     gitPull(sshAddress, gitRepository);
-    dockerCompose(sshAddress, gitRepository);
+    dockerComposeUp(sshAddress, gitRepository);
     if (isFirstDeploy) createDatabase(sshAddress, containerName);
     dbMigrate(sshAddress, containerName);
     return shell.exit(0);
