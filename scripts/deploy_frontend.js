@@ -30,10 +30,10 @@ function cloneRepository(sshAddress, gitRepository) {
     throwErrorIfFails(code);
 }
 
-function buildHtml(gitRepository, publicURL) {
+function buildHtml(gitRepository, publicURL, environment) {
     const goToRepositoryLocation = `cd ${gitRepository.location}`;
     const installDependencies = "yarn install";
-    const build = `PUBLIC_URL=${publicURL} yarn build`;
+    const build = `REACT_APP_STAGE=${environment} PUBLIC_URL=${publicURL} yarn build`;
     const command = `${goToRepositoryLocation} && ${installDependencies} && ${build}`;
     shell.echo(command);
     const code = shell.exec(command).code;
@@ -62,7 +62,7 @@ const sshAddress = config.ssh_address;
 try {
     removeRepository(gitRepository);
     cloneRepository(sshAddress, gitRepository);
-    buildHtml(gitRepository, publicURL);
+    buildHtml(gitRepository, publicURL, env);
     removeServedHtml(sshAddress, hostname);
     deployHtml(sshAddress, gitRepository, hostname);
     removeRepository(gitRepository);
