@@ -2,7 +2,7 @@ const deployJSON = require("$config/environment.json");
 const shell = require("shelljs");
 
 const env = process.env.NODE_ENV;
-const config = deployJSON.frontend[env];
+const config = deployJSON[env];
 
 const hostname = config.hostname;
 const user = config.user;

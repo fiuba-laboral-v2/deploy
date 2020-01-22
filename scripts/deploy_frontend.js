@@ -2,7 +2,7 @@ const deployJSON = require("$config/deploy.json");
 const shell = require("shelljs");
 
 const env = process.env.NODE_ENV;
-const config = deployJSON.frontend[env];
+const config = deployJSON[env];
 if (config === undefined) {
     shell.echo(`NODE_ENV should be either 'production' or 'staging'`);
     shell.exit(1);
@@ -54,9 +54,9 @@ function deployHtml(sshAddress, gitRepository, hostname) {
     throwErrorIfFails(code);
 }
 
-const gitRepository = config.git_repository;
+const gitRepository = config.frontend.git_repository;
 const hostname = config.hostname;
-const publicURL = config.public_url;
+const publicURL = config.frontend.public_url;
 const sshAddress = config.ssh_address;
 
 try {

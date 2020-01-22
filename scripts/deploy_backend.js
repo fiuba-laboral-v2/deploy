@@ -2,7 +2,7 @@ const deployJSON = require("$config/deploy.json");
 const shell = require("shelljs");
 
 const env = process.env.NODE_ENV;
-const config = deployJSON.backend[env];
+const config = deployJSON[env];
 if (config === undefined) {
     shell.echo(`NODE_ENV should be either 'production' or 'staging'`);
     shell.exit(1);
@@ -58,9 +58,9 @@ function repositoryWasNotCloned(sshAddress, gitRepository) {
     return shell.exec(`${sshCommand(sshAddress)} cd ${gitRepository.location}`).code !== 0;
 }
 
-const gitRepository = config.git_repository;
+const gitRepository = config.backend.git_repository;
 const sshAddress = config.ssh_address;
-const containerName = config.container_name;
+const containerName = config.backend.container_name;
 
 try {
     const isFirstDeploy = repositoryWasNotCloned(sshAddress, gitRepository);
