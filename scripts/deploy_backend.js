@@ -36,7 +36,7 @@ function gitPull(sshAddress, gitRepository) {
 }
 
 function cloneRepository(sshAddress, gitRepository) {
-    const command = `git clone -b ${gitRepository.branch} ${gitRepository.repository} ${gitRepository.location}`;
+    const command = `git clone -b ${gitRepository.branch} ${gitRepository.url} ${gitRepository.location}`;
     shell.echo(command);
     const code = shell.exec(`${sshCommand(sshAddress)} ${command}`).code;
     throwErrorIfFails(code);
