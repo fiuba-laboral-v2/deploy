@@ -1,22 +1,26 @@
 {
   "frontend": {
     "production": {
+      "git_repository": {
+        "url": "https://github.com/fiuba-laboral-v2/front-end.git",
+        "location": "./front-end",
+        "branch": "production"
+      },
       "sub_domain": "/laboral",
-      "PUBLIC_URL": "http://laboral.fi.uba.ar/laboral",
+      "public_url": "http://laboral.fi.uba.ar/laboral",
       "hostname": "laboral.fi.uba.ar",
-      "branch": "production",
-      "repository": "git@github.com:fiuba-laboral-v2/front-end.git",
-      "location": "./front-end",
-      "ssh_address": "laboral@antiguos.fi.uba.ar",
+      "ssh_address": "laboral@laboral.fi.uba.ar",
       "user": "laboral"
     },
     "staging": {
+      "git_repository": {
+        "url": "https://github.com/fiuba-laboral-v2/front-end.git",
+        "location": "./front-end",
+        "branch": "staging"
+      },
       "sub_domain": "/laboral",
-      "PUBLIC_URL": "http://antiguos.fi.uba.ar/laboral",
+      "public_url": "http://antiguos.fi.uba.ar/laboral",
       "hostname": "antiguos.fi.uba.ar",
-      "branch": "staging",
-      "repository": "https://github.com/fiuba-laboral-v2/front-end.git",
-      "location": "./front-end",
       "ssh_address": "laboral@antiguos.fi.uba.ar",
       "user": "laboral"
     }
