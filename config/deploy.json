@@ -35,7 +35,7 @@
         "git_repository": {
           "url": "https://github.com/fiuba-laboral-v2/back-end.git",
           "location": "./fiuba-laboral-v2/back-end",
-          "branch": "staging"
+          "branch": "feature/16-deploy"
         },
         "container_name": "fiuba-laboral-v2-backend"
       }
