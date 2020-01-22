@@ -8,37 +8,69 @@ if (config === undefined) {
     shell.exit(1);
 }
 
-const location = config.location;
-const repository = config.repository;
-const branch = config.branch;
+function throwErrorIfFails(code) {
+    if (code !== 0 ) throw { code };
+}
+
+function sshCommand(sshAddress) {
+    return `ssh -o "StrictHostKeyChecking no" ${sshAddress}`;
+}
+
+function dbMigrate(sshAddress, containerName) {
+    const code = shell.exec(`${sshCommand(sshAddress)} docker exec ${containerName} yarn db:migrate`).code;
+    throwErrorIfFails(code);
+}
+
+function gitCheckoutToBranch(sshAddress, gitRepository) {
+    const command = `cd ${gitRepository.location} && git checkout ${gitRepository.branch}`;
+    shell.echo(command);
+    const code = shell.exec(`${sshCommand(sshAddress)} '${command}'`).code;
+    throwErrorIfFails(code);
+}
+
+function gitPull(sshAddress, gitRepository) {
+    const command = `cd ${gitRepository.location} && git pull origin ${gitRepository.branch}`;
+    shell.echo(command);
+    const code = shell.exec(`${sshCommand(sshAddress)} '${command}'`).code;
+    throwErrorIfFails(code);
+}
+
+function cloneRepository(sshAddress, gitRepository) {
+    const command = `git clone -b ${gitRepository.branch} ${gitRepository.repository} ${gitRepository.location}`;
+    shell.echo(command);
+    const code = shell.exec(`${sshCommand(sshAddress)} ${command}`).code;
+    throwErrorIfFails(code);
+}
+
+function dockerCompose(sshAddress, gitRepository) {
+    shell.echo("building container");
+    const code = shell.exec(`${sshCommand(sshAddress)} 'cd ${gitRepository.location} && docker-compose up -d --build'`).code;
+    throwErrorIfFails(code);
+}
+
+function createDatabase(sshAddress, containerName) {
+    shell.echo("Creating database");
+    const code = shell.exec(`${sshCommand(sshAddress)} docker exec ${containerName} yarn db:create`).code;
+    throwErrorIfFails(code);
+}
+
+function repositoryWasNotCloned(sshAddress, gitRepository) {
+    return shell.exec(`${sshCommand(sshAddress)} cd ${gitRepository.location}`).code !== 0;
+}
+
+const gitRepository = config.git_repository;
 const sshAddress = config.ssh_address;
 const containerName = config.container_name;
 
-let code;
-
-if (shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} cd ${location}`).code !== 0) {
-    shell.echo(`git clone -b ${branch} ${repository} ${location}`);
-    code = shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} git clone -b ${branch} ${repository} ${location}`).code;
-    if (code !== 0) shell.exit(code);
-
-    shell.echo("building container");
-    code = shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} 'cd ${location} && docker-compose up -d --build'`).code;
-    if (code !== 0) shell.exit(code);
-
-    shell.echo("Creating database");
-    code = shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} docker exec ${containerName} yarn db:create`).code;
-    if (code !== 0) shell.exit(code);
-} else {
-    shell.echo(`cd ${location} && git pull origin ${branch}`);
-    code = shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} 'cd ${location} && git pull origin ${branch}'`).code;
-    if (code !== 0) shell.exit(code);
-
-    shell.echo("building container");
-    code = shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} 'cd ${location} && docker-compose up -d --build'`).code;
-    if (code !== 0) shell.exit(code);
+try {
+    const isFirstDeploy = repositoryWasNotCloned(sshAddress, gitRepository);
+    if (isFirstDeploy) cloneRepository(sshAddress, gitRepository);
+    gitCheckoutToBranch(sshAddress, gitRepository);
+    gitPull(sshAddress, gitRepository);
+    dockerCompose(sshAddress, gitRepository);
+    if (isFirstDeploy) createDatabase(sshAddress, containerName);
+    dbMigrate(sshAddress, containerName);
+    return shell.exit(0);
+} catch (e) {
+    return shell.exit(e.code);
 }
-shell.echo(`docker exec ${containerName} yarn db:migrate`);
-code = shell.exec(`ssh -o "StrictHostKeyChecking no" ${sshAddress} docker exec ${containerName} yarn db:migrate`).code;
-if (code !== 0) shell.exit(code);
-
-shell.exit(0);
