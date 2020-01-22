@@ -1,0 +1,29 @@
+{
+  "name": "deploy",
+  "version": "1.0.0",
+  "description": "Trabajo Práctico Profesional, FIUBA, 2020",
+  "main": "index.js",
+  "repository": "git@github.com:fiuba-laboral-v2/deploy.git",
+  "contributors": [
+    "Sebastian Blanco <sebastian.e.blanco@gmail.com>",
+    "Dylan Alvarez <dylanalvarez1995@gmail.com>",
+    "Manuel Llauró <llauromanuel@gmail.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "link-module-alias": "1.2.0",
+    "shelljs": "0.8.3"
+  },
+  "scripts": {
+    "preinstall": "which link-module-alias && link-module-alias clean || echo",
+    "postinstall": "link-module-alias",
+    "deploy:setup": "node scripts/set_up.js",
+    "deploy:backend": "node scripts/deploy_backend.js",
+    "deploy:frontend": "node scripts/deploy_frontend.js"
+  },
+  "_moduleAliases": {
+    "$root": ".",
+    "$package": "package.json",
+    "$config": "config"
+  }
+}

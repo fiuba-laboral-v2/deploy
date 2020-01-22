@@ -1,0 +1,11 @@
+# dependencies
+node_modules
+
+# repositories
+front-end
+
+# misc
+*.log
+.DS_Store
+.idea
+.vscode
