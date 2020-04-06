@@ -17,7 +17,7 @@ function sshCommand(sshAddress) {
 }
 
 function dbMigrate(sshAddress, containerName) {
-    const code = shell.exec(`${sshCommand(sshAddress)} docker exec ${containerName} yarn db:staging:migrate`).code;
+    const code = shell.exec(`${sshCommand(sshAddress)} docker exec ${containerName} yarn db:migrate`).code;
     throwErrorIfFails(code);
 }
 
