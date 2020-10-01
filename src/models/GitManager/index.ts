@@ -1,0 +1,1 @@
+export { GitManager } from "./Model";
