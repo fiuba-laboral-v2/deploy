@@ -1,5 +1,5 @@
 import { Config, FrontendConfig } from "../src/config"
-import { GitManager } from "../src/models"
+import { GitManager, Shell } from "../src/models"
 import shell from "shelljs";
 
 function sshCommand(sshAddress) {
@@ -50,7 +50,7 @@ try {
   removeServedHtml();
   deployHtml();
   gitManager.removeRepository();
-  shell.exit(0);
-} catch (e) {
-  shell.exit(e.code || 1);
+  Shell.exitSuccess();
+} catch (error) {
+  Shell.exit(error.code);
 }
