@@ -12,7 +12,7 @@ export class GitManager {
 
   public repositoryWasNotCloned() {
     try {
-      Shell.execute({ command: `${this.sshCommand()} cd ${this.repositoryConfig.location}` })
+      Shell.execute({ command: `${this.sshCommand()} cd ${this.repositoryConfig.location}` });
       return true;
     } catch (error) {
       return false;
