@@ -1,4 +1,5 @@
 import { Config, BackendConfig } from "../src/config"
+import { GitManager } from "../src/models"
 import shell from "shelljs";
 
 const throwErrorIfFails = (code) => {
@@ -13,33 +14,6 @@ const dbMigrate = () => {
     const { sshAddress } = Config;
     const { containerName } = BackendConfig;
     const code = shell.exec(`${sshCommand(sshAddress)} docker exec ${containerName} yarn db:migrate`).code;
-    throwErrorIfFails(code);
-}
-
-const gitCheckoutToBranch = () => {
-    const { location, branch } = BackendConfig.gitRepository;
-    const { sshAddress } = Config;
-    const command = `cd ${location} && git checkout ${branch}`;
-    shell.echo(command);
-    const code = shell.exec(`${sshCommand(sshAddress)} '${command}'`).code;
-    throwErrorIfFails(code);
-}
-
-const gitPull = () => {
-    const { gitRepository: { branch, location } } = BackendConfig;
-    const { sshAddress } = Config;
-    const command = `cd ${location} && git pull origin ${branch}`;
-    shell.echo(command);
-    const code = shell.exec(`${sshCommand(sshAddress)} '${command}'`).code;
-    throwErrorIfFails(code);
-}
-
-const cloneRepository = () => {
-    const { gitRepository: { branch, location, url } } = BackendConfig;
-    const { sshAddress } = Config;
-    const command = `git clone -b ${branch} ${url} ${location}`;
-    shell.echo(command);
-    const code = shell.exec(`${sshCommand(sshAddress)} ${command}`).code;
     throwErrorIfFails(code);
 }
 
@@ -59,17 +33,15 @@ const createDatabase = () => {
     throwErrorIfFails(code);
 }
 
-const repositoryWasNotCloned = () => {
-    const { gitRepository: { location } } = BackendConfig;
-    const { sshAddress } = Config;
-    return shell.exec(`${sshCommand(sshAddress)} cd ${location}`).code !== 0;
-}
-
 try {
-    const isFirstDeploy = repositoryWasNotCloned();
-    if (isFirstDeploy) cloneRepository();
-    gitCheckoutToBranch();
-    gitPull();
+    const gitManager = new GitManager({
+        repositoryConfig: BackendConfig.gitRepository,
+        withSSHConnection: true
+    });
+    const isFirstDeploy = gitManager.repositoryWasNotCloned();
+    if (isFirstDeploy) gitManager.cloneRepository()
+    gitManager.checkoutToBranch()
+    gitManager.pull()
     dockerComposeUp();
     if (isFirstDeploy) createDatabase();
     dbMigrate();
