@@ -7,6 +7,7 @@ front-end
 # production
 build
 dist
+fiuba-laboral-v2
 
 # misc
 *.log

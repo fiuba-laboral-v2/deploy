@@ -12,37 +12,36 @@ export class GitManager {
 
   public repositoryWasNotCloned() {
     try {
-      Shell.execute({ command: `${this.sshCommand()} cd ${this.repositoryConfig.location}` });
-      return true;
-    } catch (error) {
+      this.execute(`cd ${this.repositoryConfig.location}`);
       return false;
+    } catch (error) {
+      return true;
     }
   }
 
   public cloneRepository() {
     const { location, url, branch } = this.repositoryConfig;
-    Shell.execute({ command: `git clone -b ${branch} ${url} ${location}` })
+    this.execute(`git clone -b ${branch} ${url} ${location}`);
   }
 
   public removeRepository() {
-    Shell.execute({ command: `rm -rf ${this.repositoryConfig.location}` })
+    this.execute(`rm -rf ${this.repositoryConfig.location}`);
   }
 
   public checkoutToBranch() {
     const { location, branch } = this.repositoryConfig;
-    const command = `cd ${location} && git checkout ${branch}`;
-    Shell.execute({ command: `${this.sshCommand()} '${command}'` })
+    this.execute(`cd ${location} && git checkout ${branch}`);
   }
 
   public pull() {
     const { branch, location } = this.repositoryConfig;
-    const command = `cd ${location} && git pull origin ${branch}`;
-    Shell.execute({ command: `${this.sshCommand()} '${command}'` });
+    this.execute(`cd ${location} && git pull origin ${branch}`);
   }
 
-  private sshCommand() {
-    if (!this.withSSHConnection) return "";
-    return SSHManager.command(Config.sshAddress);
+  private execute(command: string) {
+    if (!this.withSSHConnection) return Shell.execute({ command });
+
+    Shell.execute({ command: `${SSHManager.command(Config.sshAddress)} '${command}'` });
   }
 }
 

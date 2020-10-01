@@ -29,6 +29,7 @@
     "build",
     "coverage",
     "test",
-    "jest.config.js"
+    "jest.config.js",
+    "fiuba-laboral-v2"
   ]
 }
