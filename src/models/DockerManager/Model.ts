@@ -19,7 +19,7 @@ export class DockerManager {
 
   public dockerComposeUp() {
     const { location } = this.repositoryConfig;
-    const command = `${this.sshCommand()} 'cd ${location} && docker-compose up -d --build'`
+    const command = `${this.sshCommand()} 'cd ${location} && docker-compose up -d --build'`;
     return Shell.execute({ command, label: "building container" });
   }
 
@@ -32,7 +32,6 @@ export class DockerManager {
     return `${SSHManager.command(this.sshAddress)}`;
   }
 }
-
 
 interface IDockerManagerAttributes {
   repositoryConfig: IRepository;

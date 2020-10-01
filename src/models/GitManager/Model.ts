@@ -47,5 +47,5 @@ export class GitManager {
 
 interface IGitManagerAttributes {
   repositoryConfig: IRepository;
-  withSSHConnection: boolean
+  withSSHConnection: boolean;
 }

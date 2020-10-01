@@ -28,5 +28,5 @@ export const FrontendConfig = {
 }[Environment.NODE_ENV()];
 
 if (FrontendConfig === undefined) {
-  throw new Error("NODE_ENV should be either 'production' or 'staging'")
+  throw new Error("NODE_ENV should be either 'production' or 'staging'");
 }

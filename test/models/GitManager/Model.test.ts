@@ -12,13 +12,13 @@ describe("GitManager", () => {
   it("returns false if the repository was not cloned", async () => {
     const gitManager = new GitManager({ withSSHConnection: true, repositoryConfig });
     mockShellExecution(() => 0);
-    expect(gitManager.repositoryWasNotCloned()).toBe(false)
+    expect(gitManager.repositoryWasNotCloned()).toBe(false);
   });
 
   it("returns true if the repository was cloned", async () => {
     const gitManager = new GitManager({ withSSHConnection: true, repositoryConfig });
     mockShellExecution(() => { throw new Error(); });
-    expect(gitManager.repositoryWasNotCloned()).toBe(true)
+    expect(gitManager.repositoryWasNotCloned()).toBe(true);
   });
 
   it("execute the command to clone the repository through shh connection", async () => {

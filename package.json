@@ -20,9 +20,15 @@
     "babel-jest": "26.2.2",
     "babel-preset-env": "1.7.0",
     "jest": "25.5.4",
-    "ts-jest": "25.5.1"
+    "ts-jest": "25.5.1",
+    "tslint": "5.18.0",
+    "tslint-config-fiuba-laboral-v2": "1.0.9"
   },
   "scripts": {
+    "lint:src": "tslint -c tslint.json 'src/**/*.ts'",
+    "lint:test": "tslint -c tslint.json 'test/**/*.ts'",
+    "lint": "yarn lint:src && yarn lint:test && yarn compiler:lint",
+    "compiler:lint": "tsc --noEmit -p .",
     "postinstall": "yarn build",
     "test": "jest --coverage --colors --verbose=false --config ./test/jest.config.js",
     "build": "tsc --project .",
