@@ -9,6 +9,7 @@ build
 dist
 fiuba-laboral-v2
 coverage
+test/coverage
 
 # misc
 *.log

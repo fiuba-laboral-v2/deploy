@@ -1,5 +1,6 @@
-import { GitManager, Shell } from "../../../src/models";
+import { GitManager } from "../../../src/models";
 import { Config } from "../../../src/config";
+import { mockShellExecution } from "../../mocks/models/Shell";
 
 describe("GitManager", () => {
   const repositoryConfig = {
@@ -7,11 +8,6 @@ describe("GitManager", () => {
     branch: "master",
     url: "https://github.com/organization-name/repository-name.git"
   };
-
-  const mockShellExecution = (callback: (command: string) => string | number) =>
-    jest
-      .spyOn(Shell, "execute")
-      .mockImplementationOnce(({ command }) => callback(command));
 
   it("returns false if the repository was not cloned", async () => {
     const gitManager = new GitManager({ withSSHConnection: true, repositoryConfig });

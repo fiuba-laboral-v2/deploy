@@ -14,24 +14,18 @@ export class DockerManager {
 
   public dbMigrate() {
     const dockerCommand = `docker exec ${this.containerName} yarn db:migrate`;
-    Shell.execute({ command: `${this.sshCommand()} ${dockerCommand}` });
+    return Shell.execute({ command: `${this.sshCommand()} ${dockerCommand}` });
   }
 
   public dockerComposeUp() {
     const { location } = this.repositoryConfig;
     const command = `${this.sshCommand()} 'cd ${location} && docker-compose up -d --build'`
-    Shell.execute({
-      command,
-      label: "building container"
-    });
+    return Shell.execute({ command, label: "building container" });
   }
 
   public createDatabase() {
     const command = `${this.sshCommand()} docker exec ${this.containerName} yarn db:create`;
-    Shell.execute({
-      command,
-      label: "Creating database"
-    });
+    return Shell.execute({ command, label: "Creating database" });
   }
 
   private sshCommand() {
