@@ -1,5 +1,5 @@
 import { Config, IRepository } from "../../config";
-import { Shell } from "../index";
+import { Shell, SSHManager } from "../index";
 
 export class GitManager {
   private readonly repositoryConfig: IRepository;
@@ -42,7 +42,7 @@ export class GitManager {
 
   private sshCommand() {
     if (!this.withSSHConnection) return "";
-    return `ssh -o "StrictHostKeyChecking no" ${Config.sshAddress}`;
+    return SSHManager.command(Config.sshAddress);
   }
 }
 
