@@ -1,5 +1,5 @@
 import { Config, BackendConfig } from "../src/config"
-import { GitManager } from "../src/models"
+import { GitManager, Shell } from "../src/models"
 import shell from "shelljs";
 
 const throwErrorIfFails = (code) => {
@@ -34,18 +34,18 @@ const createDatabase = () => {
 }
 
 try {
-    const gitManager = new GitManager({
-        repositoryConfig: BackendConfig.gitRepository,
-        withSSHConnection: true
-    });
-    const isFirstDeploy = gitManager.repositoryWasNotCloned();
-    if (isFirstDeploy) gitManager.cloneRepository()
-    gitManager.checkoutToBranch()
-    gitManager.pull()
-    dockerComposeUp();
-    if (isFirstDeploy) createDatabase();
-    dbMigrate();
-    shell.exit(0);
+  const gitManager = new GitManager({
+    repositoryConfig: BackendConfig.gitRepository,
+    withSSHConnection: true
+  });
+  const isFirstDeploy = gitManager.repositoryWasNotCloned();
+  if (isFirstDeploy) gitManager.cloneRepository()
+  gitManager.checkoutToBranch()
+  gitManager.pull()
+  dockerComposeUp();
+  if (isFirstDeploy) createDatabase();
+  dbMigrate();
+  Shell.exitSuccess();
 } catch (error) {
-    shell.exit(error.code || 1);
+  Shell.exit(error.code);
 }
