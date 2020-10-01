@@ -21,27 +21,27 @@ export class GitManager {
 
   public cloneRepository() {
     const { location, url, branch } = this.repositoryConfig;
-    this.execute(`git clone -b ${branch} ${url} ${location}`);
+    return this.execute(`git clone -b ${branch} ${url} ${location}`);
   }
 
   public removeRepository() {
-    this.execute(`rm -rf ${this.repositoryConfig.location}`);
+    return this.execute(`rm -rf ${this.repositoryConfig.location}`);
   }
 
   public checkoutToBranch() {
     const { location, branch } = this.repositoryConfig;
-    this.execute(`cd ${location} && git checkout ${branch}`);
+    return this.execute(`cd ${location} && git checkout ${branch}`);
   }
 
   public pull() {
     const { branch, location } = this.repositoryConfig;
-    this.execute(`cd ${location} && git pull origin ${branch}`);
+    return this.execute(`cd ${location} && git pull origin ${branch}`);
   }
 
   private execute(command: string) {
     if (!this.withSSHConnection) return Shell.execute({ command });
 
-    Shell.execute({ command: `${SSHManager.command(Config.sshAddress)} '${command}'` });
+    return Shell.execute({ command: `${SSHManager.command(Config.sshAddress)} '${command}'` });
   }
 }
 

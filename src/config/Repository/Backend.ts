@@ -1,4 +1,4 @@
-const env = process.env.NODE_ENV as "production" | "staging";
+import { Environment } from "../Environment";
 
 export const BackendConfig = {
   production: {
@@ -16,8 +16,16 @@ export const BackendConfig = {
       location: "./fiuba-laboral-v2/back-end",
       branch: "staging"
     }
+  },
+  test: {
+    containerName: "containerName",
+    gitRepository: {
+      url: "https://github.com/organization-name/repository-name.git",
+      location: "./directory",
+      branch: "master"
+    }
   }
-}[env];
+}[Environment.NODE_ENV()];
 
 if (BackendConfig === undefined) {
   throw new Error("NODE_ENV should be either 'production' or 'staging'")

@@ -1,4 +1,4 @@
-const env = process.env.NODE_ENV as "production" | "staging";
+import { Environment } from "./Environment";
 
 export const Config = {
   production: {
@@ -10,8 +10,13 @@ export const Config = {
     hostname: "antiguos.fi.uba.ar",
     sshAddress: "laboral@antiguos.fi.uba.ar",
     user: "laboral"
+  },
+  test: {
+    hostname: "test.fi.uba.ar",
+    sshAddress: "test@antiguos.fi.uba.ar",
+    user: "test"
   }
-}[env];
+}[Environment.NODE_ENV()];
 
 if (Config === undefined) {
   throw new Error("NODE_ENV should be either 'production' or 'staging'")

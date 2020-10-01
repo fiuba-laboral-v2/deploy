@@ -1,4 +1,4 @@
-const env = process.env.NODE_ENV as "production" | "staging";
+import { Environment } from "../Environment";
 
 export const FrontendConfig = {
   production: {
@@ -16,8 +16,16 @@ export const FrontendConfig = {
       location: "./front-end",
       branch: "staging"
     }
+  },
+  test: {
+    publicUrl: "http://test.fi.uba.ar/laboral",
+    gitRepository: {
+      url: "https://github.com/organization-name/repository-name.git",
+      location: "./directory",
+      branch: "master"
+    }
   }
-}[env];
+}[Environment.NODE_ENV()];
 
 if (FrontendConfig === undefined) {
   throw new Error("NODE_ENV should be either 'production' or 'staging'")
