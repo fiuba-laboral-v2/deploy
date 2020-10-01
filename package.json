@@ -20,6 +20,6 @@
     "build": "tsc --project .",
     "deploy:setup": "node scripts/set_up.js",
     "deploy:backend": "node dist/scripts/deploy_backend.js",
-    "deploy:frontend": "node scripts/deploy_frontend.js"
+    "deploy:frontend": "node dist/scripts/deploy_frontend.js"
   }
 }
