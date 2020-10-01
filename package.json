@@ -2,7 +2,6 @@
   "name": "deploy",
   "version": "1.0.0",
   "description": "Trabajo Práctico Profesional, FIUBA, 2020",
-  "main": "index.js",
   "repository": "git@github.com:fiuba-laboral-v2/deploy.git",
   "contributors": [
     "Sebastian Blanco <sebastian.e.blanco@gmail.com>",
@@ -25,7 +24,7 @@
   },
   "scripts": {
     "postinstall": "yarn build",
-    "test": "jest --coverage --colors --verbose=false",
+    "test": "jest --coverage --colors --verbose=false --config ./test/jest.config.js",
     "build": "tsc --project .",
     "deploy:setup": "node scripts/set_up.js",
     "deploy:backend": "node dist/scripts/deploy_backend.js",

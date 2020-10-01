@@ -26,10 +26,8 @@
   "exclude": [
     "node_modules",
     "dist",
-    "build",
     "coverage",
-    "test",
-    "jest.config.js",
+    "test/jest.config.js",
     "fiuba-laboral-v2"
   ]
 }
