@@ -8,6 +8,5 @@ module.exports = {
     }
   },
   watchPathIgnorePatterns: ["./node_modules/", "./fiuba-laboral-v2/**/*.ts"],
-  testPathIgnorePatterns: [".d.ts", ".js"],
-  setupFiles: ["core-js"]
+  testPathIgnorePatterns: [".d.ts", ".js"]
 };
