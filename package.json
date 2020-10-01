@@ -11,19 +11,15 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "link-module-alias": "1.2.0",
-    "shelljs": "0.8.3"
+    "@types/glob": "7.1.3",
+    "shelljs": "0.8.3",
+    "typescript": "3.7.4"
   },
   "scripts": {
-    "preinstall": "which link-module-alias && link-module-alias clean || echo",
-    "postinstall": "link-module-alias",
+    "postinstall": "yarn build",
+    "build": "tsc --project .",
     "deploy:setup": "node scripts/set_up.js",
-    "deploy:backend": "node scripts/deploy_backend.js",
+    "deploy:backend": "node dist/scripts/deploy_backend.js",
     "deploy:frontend": "node scripts/deploy_frontend.js"
-  },
-  "_moduleAliases": {
-    "$root": ".",
-    "$package": "package.json",
-    "$config": "config"
   }
 }

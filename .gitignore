@@ -4,6 +4,10 @@ node_modules
 # repositories
 front-end
 
+# production
+build
+dist
+
 # misc
 *.log
 .DS_Store
