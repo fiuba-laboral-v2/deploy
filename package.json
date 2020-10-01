@@ -18,7 +18,7 @@
   "devDependencies": {
     "@babel/core": "7.0.0",
     "@types/jest": "26.0.9",
-    "babel-jest": "26.2.2",
+    "babel-jest": "25.5.1",
     "babel-preset-env": "1.7.0",
     "jest": "25.5.4",
     "ts-jest": "25.5.1",
@@ -33,7 +33,7 @@
     "compiler:lint": "tsc --noEmit -p .",
     "postinstall": "yarn build",
     "test": "jest --coverage --colors --verbose=false --config ./test/jest.config.js",
-    "build": "tsc --project .",
+    "build": "rm -rf dist && tsc --project .",
     "deploy:setup": "node scripts/set_up.js",
     "deploy:backend": "node dist/scripts/deploy_backend.js",
     "deploy:frontend": "node dist/scripts/deploy_frontend.js"

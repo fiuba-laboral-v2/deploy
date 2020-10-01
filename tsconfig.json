@@ -28,6 +28,7 @@
     "dist",
     "coverage",
     "test/jest.config.js",
-    "fiuba-laboral-v2"
+    "fiuba-laboral-v2",
+    "front-end"
   ]
 }

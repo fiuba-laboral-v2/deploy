@@ -8,6 +8,7 @@ fiuba-laboral-v2/front-end
 build
 dist
 fiuba-laboral-v2
+front-end
 coverage
 test/coverage
 
