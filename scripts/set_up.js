@@ -1,11 +1,8 @@
-const deployJSON = require("$config/environment.json");
+const { Config } = require("../src/config");
 const shell = require("shelljs");
 
-const env = process.env.NODE_ENV;
-const config = deployJSON[env];
-
-const hostname = config.hostname;
-const user = config.user;
-const sshAddress = config.ssh_address;
+const hostname = Config.hostname;
+const user = Config.user;
+const sshAddress = Config.ssh_address;
 
 shell.exec(`ssh -o "StrictHostKeyChecking no" -t ${sshAddress} USER=${user} HOSTNAME=${hostname} bash scripts/setup.sh`);

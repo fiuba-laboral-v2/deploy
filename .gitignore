@@ -2,7 +2,15 @@
 node_modules
 
 # repositories
+fiuba-laboral-v2/front-end
+
+# production
+build
+dist
+fiuba-laboral-v2
 front-end
+coverage
+test/coverage
 
 # misc
 *.log
