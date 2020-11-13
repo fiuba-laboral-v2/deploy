@@ -1,0 +1,23 @@
+name: backend-deploy
+on:
+  repository_dispatch:
+    types: [backend-deploy]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.15.0]
+    env:
+      STAGE: ${{ github.event.client_payload.stage }}
+    steps:
+      - name: Check out repository code
+      - uses: actions/checkout@v2
+      - name: Add ssh key
+        uses: webfactory/ssh-agent@v0.4.1
+        with:
+          ssh-private-key: ${{ secrets.CI_DEPLOY_KEY }}
+      - name: Install dependencies
+        run: yarn install
+      - name: Run deploy script
+        run: NODE_ENV=echo ${STAGE##*/} yarn deploy:backend
