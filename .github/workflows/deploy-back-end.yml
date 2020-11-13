@@ -20,4 +20,4 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Run deploy script
-        run: NODE_ENV=echo ${STAGE##*/} yarn deploy:backend
+        run: NODE_ENV=${STAGE##*/} yarn deploy:backend
