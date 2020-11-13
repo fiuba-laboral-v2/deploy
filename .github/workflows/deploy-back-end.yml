@@ -12,7 +12,7 @@ jobs:
       STAGE: ${{ github.event.client_payload.stage }}
     steps:
       - name: Check out repository code
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
       - name: Add ssh key
         uses: webfactory/ssh-agent@v0.4.1
         with:
