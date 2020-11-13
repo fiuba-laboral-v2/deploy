@@ -1,7 +1,7 @@
-name: backend-deploy
+name: deploy
 on:
   repository_dispatch:
-    types: [backend-deploy]
+    types: [deploy]
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -10,6 +10,7 @@ jobs:
         node-version: [14.15.0]
     env:
       STAGE: ${{ github.event.client_payload.stage }}
+      PROJECT: ${{ github.event.client_payload.project }}
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
@@ -20,4 +21,4 @@ jobs:
       - name: Install dependencies
         run: yarn install
       - name: Run deploy script
-        run: NODE_ENV=${STAGE##*/} yarn deploy:backend
+        run: NODE_ENV=${STAGE##*/} yarn deploy:${PROJECT}
