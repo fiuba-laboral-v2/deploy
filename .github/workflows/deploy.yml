@@ -4,6 +4,7 @@ on:
     types: [deploy]
 jobs:
   deploy:
+    name: Deploy ${STAGE##*/}
     runs-on: ubuntu-latest
     strategy:
       matrix:
