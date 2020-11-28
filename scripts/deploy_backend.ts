@@ -1,5 +1,5 @@
-import { Config, BackendConfig } from "../src/config"
-import { DockerManager, GitManager, Shell } from "../src/models"
+import { Config, BackendConfig } from "../src/config";
+import { DockerManager, GitManager, Shell } from "../src/models";
 
 try {
   const gitManager = new GitManager({
@@ -12,9 +12,9 @@ try {
     containerName: BackendConfig.containerName
   });
   const isFirstDeploy = gitManager.repositoryWasNotCloned();
-  if (isFirstDeploy) gitManager.cloneRepository()
-  gitManager.checkoutToBranch()
-  gitManager.pull()
+  if (isFirstDeploy) gitManager.cloneRepository();
+  gitManager.checkoutToBranch();
+  gitManager.pull();
   dockerManager.dockerComposeUp();
   if (isFirstDeploy) dockerManager.createDatabase();
   dockerManager.dbMigrate();

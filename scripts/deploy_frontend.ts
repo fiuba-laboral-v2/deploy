@@ -1,5 +1,5 @@
-import { FrontendConfig } from "../src/config"
-import { GitManager, Shell, FrontendManager } from "../src/models"
+import { FrontendConfig } from "../src/config";
+import { GitManager, Shell, FrontendManager } from "../src/models";
 
 try {
   const gitManager = new GitManager({
