@@ -1,4 +1,4 @@
-name: deploy ${{ github.event.client_payload.project }}
+name: deploy
 on:
   repository_dispatch:
     types: [deploy]
