@@ -4,7 +4,7 @@ on:
     types: [deploy]
 jobs:
   deploy:
-    name: Deploy ${{STAGE##*/}}
+    name: Deploy ${{STAGE}}
     runs-on: ubuntu-latest
     env:
       STAGE: ${{ github.event.client_payload.stage }}
