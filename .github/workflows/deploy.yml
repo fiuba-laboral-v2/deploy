@@ -6,9 +6,6 @@ jobs:
   deploy:
     name: Deploy ${STAGE##*/}
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.15.0]
     env:
       STAGE: ${{ github.event.client_payload.stage }}
       PROJECT: ${{ github.event.client_payload.project }}
@@ -19,6 +16,8 @@ jobs:
         uses: webfactory/ssh-agent@v0.4.1
         with:
           ssh-private-key: ${{ secrets.CI_DEPLOY_KEY }}
+      - id: nvmrc
+        uses: browniebroke/read-nvmrc-action@v1
       - name: Install dependencies
         run: yarn install
       - name: Run deploy script
