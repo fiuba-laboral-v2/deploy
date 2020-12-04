@@ -4,7 +4,7 @@ on:
     types: [deploy]
 jobs:
   deploy:
-    name: Deploy ${STAGE##*/}
+    name: Deploy ${{STAGE##*/}}
     runs-on: ubuntu-latest
     env:
       STAGE: ${{ github.event.client_payload.stage }}
@@ -18,6 +18,10 @@ jobs:
           ssh-private-key: ${{ secrets.CI_DEPLOY_KEY }}
       - id: nvmrc
         uses: browniebroke/read-nvmrc-action@v1
+      - name: Use Node.js ${{ steps.nvmrc.outputs.node_version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ steps.nvmrc.outputs.node_version }}
       - name: Install dependencies
         run: yarn install
       - name: Run deploy script
