@@ -29,8 +29,19 @@ export class DockerManager {
   }
 
   public removeDanglingContainers() {
-    const command = `${this.sshCommand()} docker rmi $(docker images -f 'dangling=true' -q)`;
+    const danglingContainers = this.retrieveDanglingContainers();
+    if (danglingContainers.length === 0) return;
+    const command = `${this.sshCommand()} 'docker rmi $(${this.danglingContainersCommand()})'`;
     return Shell.execute({ command, label: "Removing dangling containers" });
+  }
+
+  private retrieveDanglingContainers() {
+    const command = `${this.sshCommand()} '${this.danglingContainersCommand()}'`;
+    return Shell.execute({ command });
+  }
+
+  private danglingContainersCommand() {
+    return "docker images -f \"dangling=true\" -q";
   }
 
   private sshCommand() {

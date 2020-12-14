@@ -43,10 +43,17 @@ describe("DockerManager", () => {
   it("removes dangling containers", async () => {
     const dockerManager = new DockerManager({ containerName, repositoryConfig, sshAddress });
     mockShellExecution(command => command);
+    mockShellExecution(command => command);
 
-    const dockerCommand = "docker rmi $(docker images -f 'dangling=true' -q)";
+    const dockerCommand = "'docker rmi $(docker images -f \"dangling=true\" -q)'";
     expect(dockerManager.removeDanglingContainers()).toEqual(
       `ssh -o \"StrictHostKeyChecking no\" ${sshAddress} ${dockerCommand}`
     );
+  });
+
+  it("does not remove dangling containers if there is not any", async () => {
+    const dockerManager = new DockerManager({ containerName, repositoryConfig, sshAddress });
+    mockShellExecution(() => "");
+    expect(dockerManager.removeDanglingContainers()).toBeUndefined();
   });
 });
