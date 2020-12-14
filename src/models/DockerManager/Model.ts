@@ -28,6 +28,22 @@ export class DockerManager {
     return Shell.execute({ command, label: "Creating database" });
   }
 
+  public removeDanglingImages() {
+    const danglingImages = this.retrieveDanglingImages();
+    if (danglingImages.length === 0) return;
+    const command = `${this.sshCommand()} 'docker rmi $(${this.danglingImagesCommand()})'`;
+    return Shell.execute({ command, label: "Removing dangling images" });
+  }
+
+  private retrieveDanglingImages() {
+    const command = `${this.sshCommand()} '${this.danglingImagesCommand()}'`;
+    return Shell.execute({ command });
+  }
+
+  private danglingImagesCommand() {
+    return "docker images -f \"dangling=true\" -q";
+  }
+
   private sshCommand() {
     return `${SSHManager.command(this.sshAddress)}`;
   }
