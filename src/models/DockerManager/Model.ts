@@ -28,19 +28,19 @@ export class DockerManager {
     return Shell.execute({ command, label: "Creating database" });
   }
 
-  public removeDanglingContainers() {
-    const danglingContainers = this.retrieveDanglingContainers();
+  public removeDanglingImages() {
+    const danglingContainers = this.retrieveDanglingImages();
     if (danglingContainers.length === 0) return;
-    const command = `${this.sshCommand()} 'docker rmi $(${this.danglingContainersCommand()})'`;
+    const command = `${this.sshCommand()} 'docker rmi $(${this.danglingImagesCommand()})'`;
     return Shell.execute({ command, label: "Removing dangling containers" });
   }
 
-  private retrieveDanglingContainers() {
-    const command = `${this.sshCommand()} '${this.danglingContainersCommand()}'`;
+  private retrieveDanglingImages() {
+    const command = `${this.sshCommand()} '${this.danglingImagesCommand()}'`;
     return Shell.execute({ command });
   }
 
-  private danglingContainersCommand() {
+  private danglingImagesCommand() {
     return "docker images -f \"dangling=true\" -q";
   }
 
