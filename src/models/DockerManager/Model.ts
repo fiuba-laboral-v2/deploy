@@ -29,8 +29,8 @@ export class DockerManager {
   }
 
   public removeDanglingImages() {
-    const danglingContainers = this.retrieveDanglingImages();
-    if (danglingContainers.length === 0) return;
+    const danglingImages = this.retrieveDanglingImages();
+    if (danglingImages.length === 0) return;
     const command = `${this.sshCommand()} 'docker rmi $(${this.danglingImagesCommand()})'`;
     return Shell.execute({ command, label: "Removing dangling containers" });
   }
