@@ -28,6 +28,11 @@ export class DockerManager {
     return Shell.execute({ command, label: "Creating database" });
   }
 
+  public removeDanglingContainers() {
+    const command = `${this.sshCommand()} docker rmi $(docker images -f 'dangling=true' -q)`;
+    return Shell.execute({ command, label: "Removing dangling containers" });
+  }
+
   private sshCommand() {
     return `${SSHManager.command(this.sshAddress)}`;
   }

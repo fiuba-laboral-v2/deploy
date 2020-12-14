@@ -39,4 +39,14 @@ describe("DockerManager", () => {
       `ssh -o \"StrictHostKeyChecking no\" ${sshAddress} ${dockerCommand}`
     );
   });
+
+  it("removes dangling containers", async () => {
+    const dockerManager = new DockerManager({ containerName, repositoryConfig, sshAddress });
+    mockShellExecution(command => command);
+
+    const dockerCommand = "docker rmi $(docker images -f 'dangling=true' -q)";
+    expect(dockerManager.removeDanglingContainers()).toEqual(
+      `ssh -o \"StrictHostKeyChecking no\" ${sshAddress} ${dockerCommand}`
+    );
+  });
 });
