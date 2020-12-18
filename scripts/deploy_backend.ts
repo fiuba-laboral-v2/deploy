@@ -18,7 +18,7 @@ try {
   dockerManager.dockerComposeUp();
   if (isFirstDeploy) dockerManager.createDatabase();
   dockerManager.dbMigrate();
-  dockerManager.removeDanglingImages();
+  dockerManager.removeUnusedImages();
   Shell.exitSuccess();
 } catch (error) {
   Shell.exit(error.code);

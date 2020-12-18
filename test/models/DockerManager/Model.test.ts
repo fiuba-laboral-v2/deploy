@@ -40,20 +40,13 @@ describe("DockerManager", () => {
     );
   });
 
-  it("removes dangling images", async () => {
+  it("removes unused images", async () => {
     const dockerManager = new DockerManager({ containerName, repositoryConfig, sshAddress });
     mockShellExecution(command => command);
-    mockShellExecution(command => command);
 
-    const dockerCommand = "'docker rmi $(docker images -f \"dangling=true\" -q)'";
-    expect(dockerManager.removeDanglingImages()).toEqual(
+    const dockerCommand = "'docker image prune --force'";
+    expect(dockerManager.removeUnusedImages()).toEqual(
       `ssh -o \"StrictHostKeyChecking no\" ${sshAddress} ${dockerCommand}`
     );
-  });
-
-  it("does not remove dangling images if there is not any", async () => {
-    const dockerManager = new DockerManager({ containerName, repositoryConfig, sshAddress });
-    mockShellExecution(() => "");
-    expect(dockerManager.removeDanglingImages()).toBeUndefined();
   });
 });
