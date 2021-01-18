@@ -1,4 +1,5 @@
 import { Environment } from "./Environment";
+import { InvalidNodeEnvVariableError } from "../models/Errors";
 
 export const Config = {
   production: {
@@ -18,6 +19,4 @@ export const Config = {
   }
 }[Environment.NODE_ENV()];
 
-if (Config === undefined) {
-  throw new Error("NODE_ENV should be either 'production' or 'staging'");
-}
+if (Config === undefined) throw new InvalidNodeEnvVariableError();

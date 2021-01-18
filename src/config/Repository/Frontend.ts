@@ -1,4 +1,5 @@
 import { Environment } from "../Environment";
+import { InvalidNodeEnvVariableError } from "../../models/Errors";
 
 export const FrontendConfig = {
   production: {
@@ -27,6 +28,4 @@ export const FrontendConfig = {
   }
 }[Environment.NODE_ENV()];
 
-if (FrontendConfig === undefined) {
-  throw new Error("NODE_ENV should be either 'production' or 'staging'");
-}
+if (FrontendConfig === undefined) throw new InvalidNodeEnvVariableError();
