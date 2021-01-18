@@ -1,5 +1,6 @@
 import { BackendConfig, Config } from "../../config";
 import { SSHManager, Shell } from "../index";
+import { InvalidNodeEnvVariableError } from "../Errors";
 
 export class BackendManager {
   private readonly nodeEnv: string;
@@ -8,6 +9,7 @@ export class BackendManager {
   constructor(nodeEnv: string) {
     this.nodeEnv = nodeEnv;
     this.sshAddress = Config.sshAddress;
+    this.validate();
   }
 
   public initializeEnvFile() {
@@ -18,5 +20,10 @@ export class BackendManager {
 
   private execute(command: string) {
     return Shell.execute({ command: `${SSHManager.command(this.sshAddress)} '${command}'` });
+  }
+
+  private validate() {
+    if (["production", "staging"].includes(this.nodeEnv)) return;
+    throw new InvalidNodeEnvVariableError();
   }
 }

@@ -1,5 +1,6 @@
 import { BackendManager } from "../../../src/models";
 import { mockShellExecution } from "../../mocks/models/Shell";
+import { InvalidNodeEnvVariableError } from "../../../src/models/Errors";
 
 describe("BackendManager", () => {
   it("initialize the env file for staging", async () => {
@@ -28,5 +29,11 @@ describe("BackendManager", () => {
       return command;
     });
     manager.initializeEnvFile();
+  });
+
+  it("throws an error if the nodeEnv is not production nor staging", async () => {
+    const matcher = expect(() => new BackendManager("something"));
+    matcher.toThrowError(InvalidNodeEnvVariableError);
+    matcher.toThrowError(InvalidNodeEnvVariableError.buildMessage());
   });
 });
