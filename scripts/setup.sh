@@ -1,6 +1,8 @@
 #!/bin/bash
 
+echo "Allow Apache"
 sudo ufw allow 'Apache'
+echo "enable ufw"
 sudo ufw enable
 
 echo "creating '/var/www/$HOSTNAME/html' folder"
