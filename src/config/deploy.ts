@@ -1,7 +1,7 @@
 import { Environment } from "./Environment";
 import { InvalidNodeEnvVariableError } from "../models/Errors";
 
-export const Config = {
+export const DeployConfig = {
   production: {
     hostname: "bolsadetrabajo.fi.uba.ar",
     frontendPath: "/",
@@ -22,4 +22,4 @@ export const Config = {
   }
 }[Environment.NODE_ENV()];
 
-if (Config === undefined) throw new InvalidNodeEnvVariableError();
+if (DeployConfig === undefined) throw new InvalidNodeEnvVariableError();

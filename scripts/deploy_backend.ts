@@ -1,4 +1,4 @@
-import { Config, BackendConfig, Environment } from "../src/config";
+import { DeployConfig, BackendConfig, Environment } from "../src/config";
 import { DockerManager, GitManager, Shell, BackendManager } from "../src/models";
 
 try {
@@ -8,7 +8,7 @@ try {
     withSSHConnection: true
   });
   const dockerManager = new DockerManager({
-    sshAddress: Config.sshAddress,
+    sshAddress: DeployConfig.sshAddress,
     repositoryConfig: BackendConfig.gitRepository,
     containerName: BackendConfig.containerName
   });

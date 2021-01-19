@@ -1,4 +1,4 @@
-import { Config, IRepository } from "../../config";
+import { DeployConfig, IRepository } from "../../config";
 import { Shell, SSHManager } from "../index";
 
 export class GitManager {
@@ -41,7 +41,9 @@ export class GitManager {
   private execute(command: string) {
     if (!this.withSSHConnection) return Shell.execute({ command });
 
-    return Shell.execute({ command: `${SSHManager.command(Config.sshAddress)} '${command}'` });
+    return Shell.execute({
+      command: `${SSHManager.command(DeployConfig.sshAddress)} '${command}'`
+    });
   }
 }
 

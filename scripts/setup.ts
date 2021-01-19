@@ -1,10 +1,10 @@
-import { Config } from "../src/config/deploy";
+import { DeployConfig } from "../src/config/deploy";
 import shell from "shelljs";
 
-const hostname = Config.hostname;
-const frontendPath = Config.frontendPath;
-const user = Config.user;
-const sshAddress = Config.sshAddress;
+const hostname = DeployConfig.hostname;
+const frontendPath = DeployConfig.frontendPath;
+const user = DeployConfig.user;
+const sshAddress = DeployConfig.sshAddress;
 
 const sshKeyArgument = "-o \"StrictHostKeyChecking no\"";
 shell.exec(`ssh ${sshKeyArgument} ${sshAddress} 'mkdir -p $HOME/fiuba-laboral-v2/scripts/'`);
