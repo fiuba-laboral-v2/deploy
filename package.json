@@ -34,7 +34,7 @@
     "compiler:lint": "tsc --noEmit -p .",
     "postinstall": "yarn build",
     "test": "jest --coverage --colors --verbose=false --config ./test/jest.config.js",
-    "build": "rm -rf dist && tsc --project . && cp scripts/check_unstaged.sh dist/scripts/check_unstaged.sh && cp scripts/set_default_settings.sh dist/scripts/set_default_settings.sh && cp scripts/setup.sh dist/scripts/setup.sh",
+    "build": "rm -rf dist && tsc --project .",
     "deploy:setup": "yarn build && node dist/scripts/setup.js",
     "deploy:backend": "yarn build && node dist/scripts/deploy_backend.js",
     "deploy:frontend": "yarn build && SKIP_PREFLIGHT_CHECK=true node dist/scripts/deploy_frontend.js"
