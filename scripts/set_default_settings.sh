@@ -11,7 +11,7 @@ cat <<EOT > "./scripts/$HOSTNAME.conf"
     ServerName $HOSTNAME
     ServerAlias www.$HOSTNAME
     DocumentRoot /var/www/html
-    Alias "/laboral" $SERVED_HTML_PATH
+    Alias "$FRONTEND_PATH" $SERVED_HTML_PATH
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>

@@ -2,7 +2,8 @@ const { Config } = require("../src/config");
 const shell = require("shelljs");
 
 const hostname = Config.hostname;
+const frontendPath = Config.frontendPath;
 const user = Config.user;
-const sshAddress = Config.ssh_address;
+const sshAddress = Config.sshAddress;
 
-shell.exec(`ssh -o "StrictHostKeyChecking no" -t ${sshAddress} USER=${user} HOSTNAME=${hostname} bash scripts/setup.sh`);
+shell.exec(`ssh -tt -o "StrictHostKeyChecking no" -t ${sshAddress} USER=${user} HOSTNAME=${hostname} FRONTEND_PATH=${frontendPath} sh ./setup.sh`);
