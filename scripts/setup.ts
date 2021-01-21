@@ -5,7 +5,7 @@ import { Environment } from "../src/config";
 import { ApacheManager } from "../src/models";
 const { gitRepository: repositoryConfig } = BackendConfig;
 
-const apacheManager = new ApacheManager();
+const apacheManager = new ApacheManager({ withSSHConnection: false });
 const gitManager = new GitManager({ repositoryConfig, withSSHConnection: true });
 const backendManager = new BackendManager(Environment.NODE_ENV());
 
