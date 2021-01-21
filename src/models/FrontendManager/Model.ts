@@ -1,9 +1,9 @@
-import { FrontendConfig, Config, Environment } from "../../config";
+import { FrontendConfig, DeployConfig, Environment } from "../../config";
 import { SSHManager, Shell } from "../index";
 
 export const FrontendManager = {
   removeServedHtml: () => {
-    const { sshAddress, hostname } = Config;
+    const { sshAddress, hostname } = DeployConfig;
     const sshCommand = SSHManager.command(sshAddress);
     try {
       return Shell.execute({ command: `${sshCommand} rm -rf /var/www/${hostname}/html/*` });
@@ -12,7 +12,7 @@ export const FrontendManager = {
     }
   },
   deployHtml: () => {
-    const { sshAddress, hostname } = Config;
+    const { sshAddress, hostname } = DeployConfig;
     const { gitRepository: { location } } = FrontendConfig;
     const sourceDirectory = `${location}/build/*`;
     const destinationDirectory = `${sshAddress}:/var/www/${hostname}/html/`;

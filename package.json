@@ -35,7 +35,7 @@
     "postinstall": "yarn build",
     "test": "jest --coverage --colors --verbose=false --config ./test/jest.config.js",
     "build": "rm -rf dist && tsc --project .",
-    "deploy:setup": "yarn build && node dist/scripts/set_up.js",
+    "deploy:setup": "yarn build && node dist/scripts/setup.js",
     "deploy:backend": "yarn build && node dist/scripts/deploy_backend.js",
     "deploy:frontend": "yarn build && SKIP_PREFLIGHT_CHECK=true node dist/scripts/deploy_frontend.js"
   },

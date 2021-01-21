@@ -1,4 +1,4 @@
-import { BackendConfig, Config } from "../../config";
+import { BackendConfig, DeployConfig } from "../../config";
 import { SSHManager, Shell } from "../index";
 import { InvalidNodeEnvVariableError } from "../Errors";
 
@@ -8,7 +8,7 @@ export class BackendManager {
 
   constructor(nodeEnv: string) {
     this.nodeEnv = nodeEnv;
-    this.sshAddress = Config.sshAddress;
+    this.sshAddress = DeployConfig.sshAddress;
     this.validate();
   }
 

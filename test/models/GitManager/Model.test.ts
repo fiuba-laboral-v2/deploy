@@ -1,5 +1,5 @@
 import { GitManager } from "../../../src/models";
-import { Config } from "../../../src/config";
+import { DeployConfig } from "../../../src/config";
 import { mockShellExecution } from "../../mocks/models/Shell";
 
 describe("GitManager", () => {
@@ -27,7 +27,7 @@ describe("GitManager", () => {
     const { branch, location, url } = repositoryConfig;
     const gitCommand = `git clone -b ${branch} ${url} ${location}`;
     expect(gitManager.cloneRepository()).toEqual(
-      `ssh -o \"StrictHostKeyChecking no\" ${Config.sshAddress} '${gitCommand}'`
+      `ssh -o \"StrictHostKeyChecking no\" ${DeployConfig.sshAddress} '${gitCommand}'`
     );
   });
 
@@ -43,7 +43,7 @@ describe("GitManager", () => {
     mockShellExecution(command => command);
     const gitCommand = `rm -rf ${repositoryConfig.location}`;
     expect(gitManager.removeRepository()).toEqual(
-      `ssh -o \"StrictHostKeyChecking no\" ${Config.sshAddress} '${gitCommand}'`
+      `ssh -o \"StrictHostKeyChecking no\" ${DeployConfig.sshAddress} '${gitCommand}'`
     );
   });
 
@@ -59,7 +59,7 @@ describe("GitManager", () => {
     const { branch, location } = repositoryConfig;
     const gitCommand = `cd ${location} && git checkout ${branch}`;
     expect(gitManager.checkoutToBranch()).toEqual(
-      `ssh -o \"StrictHostKeyChecking no\" ${Config.sshAddress} '${gitCommand}'`
+      `ssh -o \"StrictHostKeyChecking no\" ${DeployConfig.sshAddress} '${gitCommand}'`
     );
   });
 
@@ -76,7 +76,7 @@ describe("GitManager", () => {
     const { branch, location } = repositoryConfig;
     const gitCommand = `cd ${location} && git pull origin ${branch}`;
     expect(gitManager.pull()).toEqual(
-      `ssh -o \"StrictHostKeyChecking no\" ${Config.sshAddress} '${gitCommand}'`
+      `ssh -o \"StrictHostKeyChecking no\" ${DeployConfig.sshAddress} '${gitCommand}'`
     );
   });
 

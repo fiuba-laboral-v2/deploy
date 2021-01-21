@@ -1,10 +1,10 @@
 import { SSHManager, Shell, GitManager, BackendManager } from "../src/models";
-import { BackendConfig, Config, Environment } from "../src/config";
+import { BackendConfig, DeployConfig, Environment } from "../src/config";
 
-const hostname = Config.hostname;
-const frontendPath = Config.frontendPath;
-const user = Config.user;
-const sshAddress = Config.sshAddress;
+const hostname = DeployConfig.hostname;
+const frontendPath = DeployConfig.frontendPath;
+const user = DeployConfig.user;
+const sshAddress = DeployConfig.sshAddress;
 
 Shell.execute({
   command: SSHManager.copy({

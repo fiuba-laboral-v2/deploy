@@ -1,6 +1,8 @@
 #!/bin/bash
 
+echo "Allow Apache"
 sudo ufw allow 'Apache'
+echo "enable ufw"
 sudo ufw enable
 
 echo "creating '/var/www/$HOSTNAME/html' folder"
@@ -10,7 +12,7 @@ echo "creating user permissions for the '/var/www/$HOSTNAME/html' folder"
 sudo chown -R "$USER:$USER" "/var/www/$HOSTNAME/html"
 sudo chmod -R 755 "/var/www/$HOSTNAME"
 
-echo "creating apache cofiguration"
+echo "creating apache configuration"
 DEFAULT_SETTINGS_FILE=/etc/apache2/sites-available/$HOSTNAME.conf
 SERVED_HTML_PATH=/var/www/$HOSTNAME/html
 
