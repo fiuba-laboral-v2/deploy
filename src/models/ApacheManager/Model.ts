@@ -28,12 +28,16 @@ export class ApacheManager {
     const frontendPathVariable = `FRONTEND_PATH=${this.frontendPath}`;
     const variables = `${userVariable} ${hostnameVariable} ${frontendPathVariable}`;
     const bashCommand = `bash ~/${this.scriptsFolder}/setup.sh`;
-    const command = SSHManager.command(`${variables} ${bashCommand}`);
+    const command = `${this.sshCommand()} -tt '${variables} ${bashCommand}'`;
     return Shell.execute({ command });
   }
 
   public removeScriptsDirectory() {
-    const command = SSHManager.command(`rm -rf ~/${this.scriptsFolder}`);
+    const command = `${this.sshCommand()} 'rm -rf ~/${this.scriptsFolder}'`;
     return Shell.execute({ label: "finished! removing scripts from server", command });
+  }
+
+  private sshCommand() {
+    return `${SSHManager.command(this.sshAddress)}`;
   }
 }

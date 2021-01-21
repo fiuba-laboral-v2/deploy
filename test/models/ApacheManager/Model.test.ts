@@ -16,10 +16,11 @@ describe("ApacheManager", () => {
     mockShellExecution(command => command);
     expect(manager.executeApacheSetup()).toEqual(
      "ssh -o \"StrictHostKeyChecking no\" " +
-      "USER=test " +
+      "test@antiguos.fi.uba.ar -tt " +
+      "'USER=test " +
       "HOSTNAME=test.fi.uba.ar " +
       "FRONTEND_PATH=/test " +
-      "bash ~/fiuba_laboral_v2_scripts/setup.sh"
+      "bash ~/fiuba_laboral_v2_scripts/setup.sh'"
     );
   });
 
@@ -27,7 +28,9 @@ describe("ApacheManager", () => {
     const manager = new ApacheManager();
     mockShellExecution(command => command);
     expect(manager.removeScriptsDirectory()).toEqual(
-      "ssh -o \"StrictHostKeyChecking no\" rm -rf ~/fiuba_laboral_v2_scripts"
+      "ssh -o \"StrictHostKeyChecking no\" " +
+      "test@antiguos.fi.uba.ar " +
+      "'rm -rf ~/fiuba_laboral_v2_scripts'"
     );
   });
 });
