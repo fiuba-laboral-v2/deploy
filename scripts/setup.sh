@@ -17,7 +17,7 @@ DEFAULT_SETTINGS_FILE=/etc/apache2/sites-available/$HOSTNAME.conf
 SERVED_HTML_PATH=/var/www/$HOSTNAME/html
 
 sudo touch "$DEFAULT_SETTINGS_FILE"
-cat <<EOT > "./scripts/$HOSTNAME.conf"
+cat <<EOT > "./$HOSTNAME.conf"
 <VirtualHost *:80>
     ProxyPass /graphql http://localhost:5006/graphql
     ServerAdmin admin@$HOSTNAME
@@ -30,8 +30,8 @@ cat <<EOT > "./scripts/$HOSTNAME.conf"
 </VirtualHost>
 EOT
 
-sudo cp "./scripts/$HOSTNAME.conf" "$DEFAULT_SETTINGS_FILE"
-rm "./scripts/$HOSTNAME.conf"
+sudo cp "./$HOSTNAME.conf" "$DEFAULT_SETTINGS_FILE"
+rm "./$HOSTNAME.conf"
 
 sudo a2ensite "$HOSTNAME.conf"
 sudo a2enmod proxy
