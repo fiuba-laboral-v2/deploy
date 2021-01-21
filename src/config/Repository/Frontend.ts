@@ -6,7 +6,7 @@ export const FrontendConfig = {
     publicUrl: "http://bolsadetrabajo.fi.uba.ar/",
     gitRepository: {
       url: "https://github.com/fiuba-laboral-v2/front-end.git",
-      location: "./fiuba-laboral-v2/front-end",
+      location: "~/fiuba-laboral-v2/front-end",
       branch: "production"
     }
   },
@@ -14,7 +14,7 @@ export const FrontendConfig = {
     publicUrl: "http://antiguos.fi.uba.ar/laboral",
     gitRepository: {
       url: "https://github.com/fiuba-laboral-v2/front-end.git",
-      location: "./fiuba-laboral-v2/front-end",
+      location: "~/fiuba-laboral-v2/front-end",
       branch: "staging"
     }
   },

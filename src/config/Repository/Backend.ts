@@ -6,7 +6,7 @@ export const BackendConfig = {
     containerName: "fiuba-laboral-v2-backend",
     gitRepository: {
       url: "https://github.com/fiuba-laboral-v2/back-end.git",
-      location: "./fiuba-laboral-v2/back-end",
+      location: "~/fiuba-laboral-v2/back-end",
       branch: "production"
     }
   },
@@ -14,7 +14,7 @@ export const BackendConfig = {
     containerName: "fiuba-laboral-v2-backend",
     gitRepository: {
       url: "https://github.com/fiuba-laboral-v2/back-end.git",
-      location: "./fiuba-laboral-v2/back-end",
+      location: "~/fiuba-laboral-v2/back-end",
       branch: "staging"
     }
   },
