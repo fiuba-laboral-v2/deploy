@@ -16,12 +16,11 @@ describe("ApacheManager", () => {
     mockShellExecution(command => command);
     expect(manager.executeApacheSetup()).toEqual(
      "ssh -o \"StrictHostKeyChecking no\" " +
-      `
-      USER=test
-      HOSTNAME=test.fi.uba.ar
-      FRONTEND_PATH=/test
-      bash ~/fiuba_laboral_v2_scripts/setup.sh
-    `);
+      "USER=test " +
+      "HOSTNAME=test.fi.uba.ar " +
+      "FRONTEND_PATH=/test " +
+      "bash ~/fiuba_laboral_v2_scripts/setup.sh"
+    );
   });
 
   it("removes the scripts copied in the server", async () => {

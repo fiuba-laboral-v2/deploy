@@ -23,12 +23,12 @@ export class ApacheManager {
   }
 
   public executeApacheSetup() {
-    const command = SSHManager.command(`
-      USER=${this.user}
-      HOSTNAME=${this.hostname}
-      FRONTEND_PATH=${this.frontendPath}
-      bash ~/${this.scriptsFolder}/setup.sh
-    `);
+    const userVariable = `USER=${this.user}`;
+    const hostnameVariable = `HOSTNAME=${this.hostname}`;
+    const frontendPathVariable = `FRONTEND_PATH=${this.frontendPath}`;
+    const variables = `${userVariable} ${hostnameVariable} ${frontendPathVariable}`;
+    const bashCommand = `bash ~/${this.scriptsFolder}/setup.sh`;
+    const command = SSHManager.command(`${variables} ${bashCommand}`);
     return Shell.execute({ command });
   }
 
