@@ -14,7 +14,7 @@ sudo chmod -R 755 "/var/www/$HOSTNAME"
 
 echo "creating apache configuration"
 DEFAULT_SETTINGS_FILE=/etc/apache2/sites-available/$HOSTNAME.conf
-SERVED_HTML_PATH=/var/www/$HOSTNAME/html
+SERVED_HTML_PATH=/var/www/$HOSTNAME/html/
 
 sudo touch "$DEFAULT_SETTINGS_FILE"
 cat <<EOT > "./$HOSTNAME.conf"
@@ -23,7 +23,7 @@ cat <<EOT > "./$HOSTNAME.conf"
     ServerAdmin admin@$HOSTNAME
     ServerName $HOSTNAME
     ServerAlias www.$HOSTNAME
-    DocumentRoot /var/www/html
+    DocumentRoot $SERVED_HTML_PATH
     Alias "$FRONTEND_PATH" $SERVED_HTML_PATH
     ErrorLog ${APACHE_LOG_DIR}/error.log
     CustomLog ${APACHE_LOG_DIR}/access.log combined
