@@ -1,18 +1,18 @@
 #!/bin/bash
 
-echo "Allow Apache"
+echo "----- allowing apache -----"
 sudo ufw allow 'Apache'
-echo "enable ufw"
+echo "----- enabling ufw -----"
 sudo ufw enable
 
-echo "creating '/var/www/$HOSTNAME/html' folder"
+echo "----- creating '/var/www/$HOSTNAME/html' folder -----"
 sudo mkdir -p "/var/www/$HOSTNAME/html"
 
-echo "creating user permissions for the '/var/www/$HOSTNAME/html' folder"
+echo "----- creating user permissions for the '/var/www/$HOSTNAME/html' folder -----"
 sudo chown -R "$USER:$USER" "/var/www/$HOSTNAME/html"
 sudo chmod -R 755 "/var/www/$HOSTNAME"
 
-echo "creating apache configuration"
+echo "----- creating apache configuration -----"
 DEFAULT_SETTINGS_FILE=/etc/apache2/sites-available/$HOSTNAME.conf
 SERVED_HTML_PATH=/var/www/$HOSTNAME/html/
 
@@ -38,6 +38,6 @@ sudo a2enmod proxy
 sudo a2enmod proxy_http
 sudo systemctl restart apache2
 
-echo "Set up docker permissions"
+echo "----- Set up docker permissions -----"
 sudo groupadd docker
 sudo usermod -aG docker $USER
