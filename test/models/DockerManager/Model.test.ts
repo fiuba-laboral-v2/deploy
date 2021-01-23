@@ -1,5 +1,6 @@
 import { DockerManager } from "../../../src/models";
 import { mockShellExecution } from "../../mocks/models/Shell";
+import { Environment } from "../../../src/config";
 
 describe("DockerManager", () => {
   const repositoryConfig = {
@@ -25,6 +26,19 @@ describe("DockerManager", () => {
     mockShellExecution(command => command);
 
     const dockerCommand = `cd ${repositoryConfig.location} && docker-compose up -d --build`;
+    expect(dockerManager.dockerComposeUp()).toEqual(
+      `ssh -o \"StrictHostKeyChecking no\" ${sshAddress} '${dockerCommand}'`
+    );
+  });
+
+  it("builds the image and compose the container for production environment", async () => {
+    const dockerManager = new DockerManager({ containerName, repositoryConfig, sshAddress });
+    jest.spyOn(Environment, "isProduction").mockImplementation(() => true);
+    mockShellExecution(command => command);
+
+    const locationCommand = `cd ${repositoryConfig.location}`;
+    const composeCommand = `docker-compose up ${containerName} -d --build`;
+    const dockerCommand = `${locationCommand} && ${composeCommand}`;
     expect(dockerManager.dockerComposeUp()).toEqual(
       `ssh -o \"StrictHostKeyChecking no\" ${sshAddress} '${dockerCommand}'`
     );
