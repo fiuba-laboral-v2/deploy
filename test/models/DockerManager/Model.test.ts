@@ -35,12 +35,11 @@ describe("DockerManager", () => {
     const dockerManager = new DockerManager({ containerName, repositoryConfig, sshAddress });
     jest.spyOn(Environment, "isProduction").mockImplementation(() => true);
     mockShellExecution(command => command);
-
-    const locationCommand = `cd ${repositoryConfig.location}`;
-    const composeCommand = `docker-compose up ${containerName} -d --build`;
-    const dockerCommand = `${locationCommand} && ${composeCommand}`;
     expect(dockerManager.dockerComposeUp()).toEqual(
-      `ssh -o \"StrictHostKeyChecking no\" ${sshAddress} '${dockerCommand}'`
+      "ssh -o \"StrictHostKeyChecking no\" " +
+      "someSHHAddress@test.fi.uba.ar " +
+      "'cd ./directory && docker-compose up someContainerName -d --build'" +
+      ""
     );
   });
 
