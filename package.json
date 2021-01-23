@@ -35,9 +35,9 @@
     "postinstall": "yarn build",
     "test": "jest --coverage --colors --verbose=false --config ./test/jest.config.js",
     "build": "rm -rf dist && tsc --project .",
-    "deploy:setup": "node scripts/set_up.js",
-    "deploy:backend": "node dist/scripts/deploy_backend.js",
-    "deploy:frontend": "SKIP_PREFLIGHT_CHECK=true node dist/scripts/deploy_frontend.js"
+    "deploy:setup": "yarn build && node dist/scripts/setup.js",
+    "deploy:backend": "yarn build && node dist/scripts/deploy_backend.js",
+    "deploy:frontend": "yarn build && SKIP_PREFLIGHT_CHECK=true node dist/scripts/deploy_frontend.js"
   },
   "husky": {
     "hooks": {
