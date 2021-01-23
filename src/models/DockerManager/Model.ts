@@ -1,5 +1,5 @@
 import { SSHManager, Shell } from "../index";
-import { IRepository } from "../../config";
+import { Environment, IRepository } from "../../config";
 
 export class DockerManager {
   private readonly sshAddress: string;
@@ -18,8 +18,11 @@ export class DockerManager {
   }
 
   public dockerComposeUp() {
+    const service = Environment.isProduction() ? ` ${this.containerName} ` : " ";
     const { location } = this.repositoryConfig;
-    const command = `${this.sshCommand()} 'cd ${location} && docker-compose up -d --build'`;
+    const locationCommand = `cd ${location}`;
+    const composeCommand = `docker-compose up${service}-d --build`;
+    const command = `${this.sshCommand()} '${locationCommand} && ${composeCommand}'`;
     return Shell.execute({ command, label: "building container" });
   }
 
