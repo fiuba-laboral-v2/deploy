@@ -14,10 +14,9 @@ describe("DockerManager", () => {
   it("runs the migrations", async () => {
     const dockerManager = new DockerManager({ containerName, repositoryConfig, sshAddress });
     mockShellExecution(command => command);
-
-    const dockerCommand = `docker exec ${containerName} yarn db:migrate`;
     expect(dockerManager.dbMigrate()).toEqual(
-      `ssh -o \"StrictHostKeyChecking no\" ${sshAddress} ${dockerCommand}`
+      "ssh -o \"StrictHostKeyChecking no\" someSHHAddress@test.fi.uba.ar " +
+      "docker exec someContainerName yarn db:migrate"
     );
   });
 
