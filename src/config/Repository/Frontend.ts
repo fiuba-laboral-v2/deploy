@@ -3,7 +3,7 @@ import { InvalidNodeEnvVariableError } from "../../models/Errors";
 
 export const FrontendConfig = {
   production: {
-    publicUrl: "http://bolsadetrabajo.fi.uba.ar/",
+    publicUrl: "https://bolsadetrabajo.fi.uba.ar/",
     gitRepository: {
       url: "https://github.com/fiuba-laboral-v2/front-end.git",
       location: "./fiuba-laboral-v2/front-end",
