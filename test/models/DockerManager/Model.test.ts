@@ -23,10 +23,11 @@ describe("DockerManager", () => {
   it("builds the image and compose the container", async () => {
     const dockerManager = new DockerManager({ containerName, repositoryConfig, sshAddress });
     mockShellExecution(command => command);
-
-    const dockerCommand = `cd ${repositoryConfig.location} && docker-compose up -d --build`;
     expect(dockerManager.dockerComposeUp()).toEqual(
-      `ssh -o \"StrictHostKeyChecking no\" ${sshAddress} '${dockerCommand}'`
+      "ssh -o \"StrictHostKeyChecking no\" " +
+      "someSHHAddress@test.fi.uba.ar " +
+      "'cd ./directory && docker-compose up -d --build'" +
+      ""
     );
   });
 
@@ -45,20 +46,22 @@ describe("DockerManager", () => {
   it("creates the database", async () => {
     const dockerManager = new DockerManager({ containerName, repositoryConfig, sshAddress });
     mockShellExecution(command => command);
-
-    const dockerCommand = `docker exec ${containerName} yarn db:create`;
     expect(dockerManager.createDatabase()).toEqual(
-      `ssh -o \"StrictHostKeyChecking no\" ${sshAddress} ${dockerCommand}`
+      "ssh -o \"StrictHostKeyChecking no\" " +
+      "someSHHAddress@test.fi.uba.ar " +
+      "docker exec someContainerName yarn db:create" +
+      ""
     );
   });
 
   it("removes unused images", async () => {
     const dockerManager = new DockerManager({ containerName, repositoryConfig, sshAddress });
     mockShellExecution(command => command);
-
-    const dockerCommand = "'docker image prune --force'";
     expect(dockerManager.removeUnusedImages()).toEqual(
-      `ssh -o \"StrictHostKeyChecking no\" ${sshAddress} ${dockerCommand}`
+      "ssh -o \"StrictHostKeyChecking no\" " +
+      "someSHHAddress@test.fi.uba.ar " +
+      "'docker image prune --force'" +
+      ""
     );
   });
 });
