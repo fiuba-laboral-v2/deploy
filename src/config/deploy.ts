@@ -5,8 +5,8 @@ export const DeployConfig = {
   production: {
     hostname: "bolsadetrabajo.fi.uba.ar",
     frontendPath: "/",
-    sshAddress: "dylan@dvt-1029",
-    user: "dylan"
+    sshAddress: "sebastian@sebastian",
+    user: "sebastian"
   },
   staging: {
     hostname: "antiguos.fi.uba.ar",
