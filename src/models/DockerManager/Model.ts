@@ -18,10 +18,10 @@ export class DockerManager {
   }
 
   public dockerComposeUp() {
-    const service = Environment.isProduction() ? ` ${this.containerName} ` : " ";
+    const service = Environment.isProduction() ? ` ${this.containerName}` : "";
     const { location } = this.repositoryConfig;
     const locationCommand = `cd ${location}`;
-    const composeCommand = `docker-compose up${service}-d --build`;
+    const composeCommand = `docker-compose up -d --build${service}`;
     const command = `${this.sshCommand()} '${locationCommand} && ${composeCommand}'`;
     return Shell.execute({ command, label: "building container" });
   }

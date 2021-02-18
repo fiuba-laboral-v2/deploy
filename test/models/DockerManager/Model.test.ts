@@ -40,7 +40,7 @@ describe("DockerManager", () => {
     expect(dockerManager.dockerComposeUp()).toEqual(
       "ssh -o \"StrictHostKeyChecking no\" " +
       "someSHHAddress@test.fi.uba.ar " +
-      "'cd ./directory && docker-compose up someContainerName -d --build'" +
+      "'cd ./directory && docker-compose up -d --build someContainerName'" +
       ""
     );
   });
